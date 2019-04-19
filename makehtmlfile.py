@@ -17,10 +17,10 @@ def main():
     match2=getmatch(Search_name)
     buffer=makebuffer(match2)
 
-    f= open(Search_name+"_page.html","w+")
+    f= open('html/'+Search_name+"_page.html","w+")
     f.write(buffer)
     f.close()
-    print("Processus terminé ! "+Search_name+"_page.html est créé dans le répertoire !")
+    print("Processus terminé ! "+Search_name+"_page.html est créé dans le répertoire html !")
 
 if __name__ == '__main__':
     main()
