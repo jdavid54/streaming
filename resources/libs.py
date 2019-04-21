@@ -22,7 +22,7 @@ import time
 import requests
 #import _Edit
 
-
+style='<head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head>'
 
 def Open_Url(url):
     req = Request(url)
@@ -121,7 +121,10 @@ def modifyURL(url):
     result=''
     for i in range(len(u)):
         url2=(url[u[i]:v[i]])
-        result+=appendHost(url2)+'<br>'
+        if linkok(url2.lower()):
+            result+=appendHost(url2)+'<br>'
+        else:
+            result+=appendHost(url2)+'-warning: dont use !<br>'
     return result
 
 def getmatch(Search_name):
@@ -136,11 +139,18 @@ def getmatch(Search_name):
         f.close()
     return match2
 
+def linkok(link):
+    test=True
+    for sub in ('vidto','vidzi'):
+        if link.find(sub) != -1:
+            test=False
+    return test
+
 def makebuffer(match_file):
     FANART = 'fanart.jpg'
     n=1                     # error image
     m=1                     # number of movies
-    buffer='<h1>'+Search_name+' movies ! Enjoy !</h1>'
+    buffer=style+'<body><h1>'+Search_name+' movies ! Enjoy !</h1>'
     for name2,url2,image2,fanart2 in match_file:
         if debug: print(name2,url2,image2)
         if url2 not in ('ignorme','ignoreme'):
@@ -200,10 +210,10 @@ def makebuffer(match_file):
 
                 if debug :print(name2,url2,image2)
                 #append buffer
-                buffer+='<p id="title">'+name2+'</p>'
-                buffer+='<div style="float:left;width:20%"><img src="'+image2+'" width=100% /></div>'
-                buffer+='<div class="link" style="margin-left: 210px;margin-top:20px;height:300px">'+url2+'<br></div>'
-                buffer+='<br><div><hr></div>'
-                print(m,name2)
+                buffer+='<figure class="swap-on-hover">'
+                buffer+='<img class="swap-on-hover__front-image" src="'+image2+'"/>'
+                buffer+='<div class="swap-on-hover__back-image">'+url2+'</div></figure>'
+                print(m,name2,linkok(url2))
                 m+=1
+    buffer+='<p><small> April 2019</small></p></body></html>'
     return buffer
