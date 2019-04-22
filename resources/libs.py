@@ -1,12 +1,12 @@
 #-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
+# Name:        libs.py
+# Purpose:     load txt file, replace tags, css display
 #
 # Author:      Jean
 #
 # Created:     19/04/2019
 # Copyright:   (c) Jean 2019
-# Licence:     <your licence>
+# Licence:     Free Open Source
 #-------------------------------------------------------------------------------
 import urllib
 from urllib.request import urlopen, Request
