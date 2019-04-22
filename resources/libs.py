@@ -195,6 +195,7 @@ def makebuffer(match_file):
                     name2 = name2.replace('[/B]','')
                     url2 = '<a href="'+url2+'">Link to video</a>'
                     url2 = modifyURL(url2)
+				url2=name2+'<br>'+url2
                 # is image link valid ?
                 try:
                     response = requests.get(image2)
@@ -202,12 +203,13 @@ def makebuffer(match_file):
                         n+=1
                         #replace invalid link image
                         image2='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
+						
                 except:
                     if debug: print(image2,'no image',n,response.status_code)
                     n+=1
                     #replace invalid image
                     image2='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
-
+					
                 if debug :print(name2,url2,image2)
                 #append buffer
                 buffer+='<figure class="swap-on-hover">'
