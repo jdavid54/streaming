@@ -8,3 +8,5 @@ options : nr, nr2, n3, nr4, kids, horror, doc, alien, anim, comedies, disaster, 
 if initial = True then Search_name first letter is used !
 
 options : 0, a, e, i, m, q, t, u 
+
+Last update : 23 April 2019 
