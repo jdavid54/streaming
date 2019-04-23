@@ -65,6 +65,12 @@ def chooseURL(Search_name):
     else:
         if Search_title == "nr":
             url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/newreleases.txt'
+        if Search_title == "nr2":
+            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr2.txt'
+        if Search_title == "nr3":
+            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr3.txt'
+        if Search_title == "nr4":
+            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr4.txt'
         if Search_title == "cam":
             url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/cams.txt'
         if Search_title == "box":
@@ -109,16 +115,20 @@ def find_text(t,sub1,sub2=''):
 
 def appendHost(url):
     for i in ('vidoza', 'openload', 'streamango', 'uptobox', '1fichier', 'rapidgator',\
-     'streamcherry', 'vidto', 'vidzi', 'streamcloud', 'youtube', 'veehd', 'youwatch'):
+     'streamcherry', 'vidto', 'vidzi', 'streamcloud', 'youtube', 'veehd', 'youwatch', 'uptostream'):
         if i in url:
             url = url.replace('</a>',' ['+i.capitalize()+']</a>')
     return url
 
 def modifyURL(url):
+    if debug: print("modifying",url)
     u,v = find_text(url,'<a','</a')
     result=''
     for i in range(len(u)):
-        url2=(url[u[i]:v[i]])
+        try:
+            url2=(url[u[i]:v[i]])
+        except:
+            url2=''
         if linkok(url2.lower()):
             result+=appendHost(url2)+'<br>'
         else:
