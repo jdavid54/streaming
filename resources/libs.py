@@ -8,17 +8,17 @@
 # Copyright:   (c) Jean 2019
 # Licence:     Free Open Source
 #-------------------------------------------------------------------------------
-import urllib
+#import urllib
 from urllib.request import urlopen, Request
-import datetime
-import shutil
+#import datetime
+#import shutil
 import re
-import os
+#import os
 try:
     import json
 except:
     import simplejson as json
-import time
+#import time
 import requests
 #import _Edit
 
