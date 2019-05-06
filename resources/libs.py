@@ -32,7 +32,7 @@ def Open_Url(url):
     try:
         response = urlopen(req)
         link=response.read()
-        if debug: ('OK reading url')
+        if debug: print('OK reading url')
         response.close()
     except: pass
     if link != '':
@@ -71,6 +71,8 @@ def chooseURL(Search_name):
             url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr3.txt'
         if Search_title == "nr4":
             url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr4.txt'
+        if Search_title == "nr5":
+            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr5.txt'
         if Search_title == "cam":
             url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/cams.txt'
         if Search_title == "box":
