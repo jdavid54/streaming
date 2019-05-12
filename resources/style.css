@@ -1,4 +1,8 @@
-body {background-color: orange;box-sizing: border-box;}
+body {
+	background-color: orange;
+	box-sizing: border-box;
+	font-family : sans-serif;
+}
 /* Make the container relative */
 .swap-on-hover {
   position: relative;
@@ -46,4 +50,11 @@ float : left;
 }
 p, hr {
 	clear:both;
+}
+
+div {
+	position:relative;
+	float:left;
+	width:50%;
+	margin:0 auto;
 }
