@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 import resources
 from resources.libs import getmatch, makebuffer
 import time
@@ -6,7 +7,7 @@ import time
 debug = False
 initial = False            # if True search using first letter
 Search_filter = ''         # title filter
-Search_name = 'nr5'        # source name
+Search_name = 'nr'        # source name
 
 #pass variable initial to libs
 resources.libs.initial=initial
@@ -14,8 +15,22 @@ resources.libs.debug=debug
 resources.libs.Search_name=Search_name
 resources.libs.Search_filter=Search_filter
 
+def get_params():
+    try:
+       return sys.argv
+    except:
+        return []
+
 def main():
     start = time.time()
+    args=sys.argv
+    if '-d' in args:
+        debug = True
+    if '-i' in args:
+        initial = True
+    if '-n' in args:
+        Search_name = args[args.index('-n')+1]
+    
     match2=getmatch(Search_name)
     #print(type(match2))
     buffer=makebuffer(match2)
