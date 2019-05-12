@@ -22,7 +22,7 @@ except:
 import requests
 #import _Edit
 
-style='<head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head>'
+style='<html><head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head>'
 
 def Open_Url(url):
     req = Request(url)
@@ -228,5 +228,5 @@ def makebuffer(match_file):
                 buffer+='<div class="swap-on-hover__back-image">'+url2+'</div></figure>'
                 print(m,name2,linkok(url2))
                 m+=1
-    buffer+='<p><small> April 2019</small></p></body></html>'
+    buffer+='<p><small> May 2019</small></p></body></html>'
     return buffer
