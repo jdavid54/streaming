@@ -15,12 +15,6 @@ resources.libs.debug=debug
 resources.libs.Search_name=Search_name
 resources.libs.Search_filter=Search_filter
 
-def get_params():
-    try:
-       return sys.argv
-    except:
-        return []
-
 def main():
     start = time.time()
     args=sys.argv
@@ -30,6 +24,8 @@ def main():
         initial = True
     if '-n' in args:
         Search_name = args[args.index('-n')+1]
+    else:
+        Search_name = 'nr'
     
     match2=getmatch(Search_name)
     #print(type(match2))
