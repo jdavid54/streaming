@@ -3,7 +3,7 @@
 # Purpose:     load txt file, replace tags, css display
 #
 # Author:      Jean
-#
+# old : http://supremacy.org.uk/tombraider/dogsbollocks/
 # Created:     19/04/2019
 # Copyright:   (c) Jean 2019
 # Licence:     Free Open Source
@@ -45,66 +45,66 @@ def chooseURL(Search_name):
     Search_title = Search_name.lower().replace(' ','')
     if initial:      #if initial=True, search by initials
         if Search_title[0] in 'abcd':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/A-D.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/A-D.txt'
         elif Search_title[0] in 'efgh':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/E-H.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/E-H.txt'
         elif Search_title[0] in 'ijkl':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/I-L.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/I-L.txt'
         elif Search_title[0] in 'mnop':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/M-P.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/M-P.txt'
         elif Search_title[0] in 'qrs':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/Q-S.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/Q-S.txt'
         elif Search_title[0] in 't':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/T.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/T.txt'
         elif Search_title[0] in 'uvwxyz':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/U-Z.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/U-Z.txt'
         elif Search_title[0] in '0123456789':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/0-1000000.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/0-1000000.txt'
         elif Search_title[0] in '':
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/realdebrid.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/realdebrid.txt'
     else:
         if Search_title == "nr":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/newreleases.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/newreleases.txt'
         if Search_title == "nr2":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr2.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/nr2.txt'
         if Search_title == "nr3":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr3.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/nr3.txt'
         if Search_title == "nr4":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr4.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/nr4.txt'
         if Search_title == "nr5":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/nr5.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/nr5.txt'
         if Search_title == "cam":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/cams.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/cams.txt'
         if Search_title == "box":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/boxsets.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/boxsets.txt'
         if Search_title == "full":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/fullseries.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/fullseries.txt'
         if Search_title == "special":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/specials.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/specials.txt'
         if Search_title == "kids":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/kidsmovies.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/kidsmovies.txt'
         if Search_title == "horror":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/horror.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/horror.txt'
         if Search_title == "0-9":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/0-1000000.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/0-1000000.txt'
         if Search_title == "doc":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/documentaries.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/documentaries.txt'
         if Search_title == "action":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10action.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10action.txt'
         if Search_title == "alien":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10alieninvasion.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10alieninvasion.txt'
         if Search_title == "anim":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10animation.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10animation.txt'
         if Search_title == "comedies":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10comedies.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10comedies.txt'
         if Search_title == "disaster":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10disaster.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10disaster.txt'
         if Search_title == "fight":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10fight.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10fight.txt'
         if Search_title == "gangster":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10gangster.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10gangster.txt'
         if Search_title == "ghost":
-            url_to_open = 'http://supremacy.org.uk/tombraider/dogsbollocks/top10ghosthorror.txt'
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/top10ghosthorror.txt'
     return url_to_open
 
 def find_text(t,sub1,sub2=''):
@@ -226,7 +226,11 @@ def makebuffer(match_file):
                 buffer+='<figure class="swap-on-hover">'
                 buffer+='<img class="swap-on-hover__front-image" src="'+image2+'"/>'
                 buffer+='<div class="swap-on-hover__back-image">'+url2+'</div></figure>'
-                print(m,name2,linkok(url2))
+                print(m,name2,end=' ')
+                if linkok(url2): 
+                    print('*')
+                else:
+                    print()
                 m+=1
     buffer+='<p><small> May 2019</small></p></body></html>'
     return buffer
