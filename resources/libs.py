@@ -73,6 +73,8 @@ def chooseURL(Search_name):
             url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/nr4.txt'
         if Search_title == "nr5":
             url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/nr5.txt'
+        if Search_title == "4k":
+            url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/uhd.txt'
         if Search_title == "cam":
             url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/cams.txt'
         if Search_title == "box":
