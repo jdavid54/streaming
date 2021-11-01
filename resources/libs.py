@@ -11,6 +11,10 @@
 #import urllib
 from urllib.request import urlopen, Request
 import datetime
+try:
+    from resources.urls import *
+except:
+    from urls import *
 #import shutil
 import re
 #import os
@@ -42,6 +46,16 @@ def Open_Url(url):
         link = 'Opened'
         return link
 
+def get_url(Search_name):
+    Search_title = Search_name.lower().replace(' ','')
+    #url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/newreleases.txt'
+    if initial:
+        for k,v in initials.items():
+            if Search_title[0] in k:
+                return v
+    else:
+        return urls[Search_title]
+    
 def chooseURL(Search_name):
     Search_title = Search_name.lower().replace(' ','')
     if initial:      #if initial=True, search by initials
@@ -61,7 +75,7 @@ def chooseURL(Search_name):
             url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/U-Z.txt'
         elif Search_title[0] in '0123456789':
             url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/0-1000000.txt'
-        elif Search_title[0] in '':
+        elif Search_title[0] in '#':
             url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/realdebrid.txt'
     else:
         if Search_title == "nr":
@@ -140,7 +154,8 @@ def modifyURL(url):
     return result
 
 def getmatch(Search_name):
-    source=chooseURL(Search_name)
+    #source = chooseURL(Search_name)
+    source = get_url(Search_name)
     if debug: print(Search_name,source,Search_filter)
     print(Search_name,source)
     HTML2 = Open_Url(source)
