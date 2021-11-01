@@ -11,23 +11,26 @@
 #import urllib
 from urllib.request import urlopen, Request
 import datetime
-try:
-    from resources.urls import *
-except:
-    from urls import *
 #import shutil
 import re
 #import os
+#import time
+import requests
+#import _Edit
 try:
     import json
 except:
     import simplejson as json
-#import time
-import requests
-#import _Edit
+
+import pickle
+
+file_name = "data/data.json"
+pkl1, pkl2 = 'data/initials.pkl', 'data/urls.pkl'
+
+
 
 # variables  : debug, initial, Search_name, Search_filter, data_file from makehtmlfile.py
-style='<html><head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head>'
+style = '<html><head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head>'
 
 def Open_Url(url):
     req = Request(url)
@@ -48,7 +51,7 @@ def Open_Url(url):
 
 def get_url(Search_name):
     Search_title = Search_name.lower().replace(' ','')
-    ry:
+    try:
         if initial:
             for k,v in initials.items():
                 if Search_title[0] in k:
@@ -348,32 +351,37 @@ def make_dict(places):
     return mydict
 
 # saving mydict to file 
-import json
-import pickle
 
-def save2file(mydict):
+
+def save_json(file, mydict):
     # save as json file
-    with open("data/data.json", "w") as json_file:
+    with open(file, "w") as json_file:
         json.dump(mydict, json_file)
-    
+#save_json(file_name)
+        
+def save_pkl(dict1, dict2):
     # save as pickle file
-    with open("data/data.pkl", "wb") as pkl_file:
-        pickle.dump(mydict, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
+    with open("data/initials.pkl", "wb") as pkl_file:
+        pickle.dump(dict1, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
+    with open("data/urls.pkl", "wb") as pkl_file:
+        pickle.dump(dict2, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
+#save_pkl(initials, urls)
 
-file_name= 'data/data.pkl'
-def read_pkl(file_name):
-    with open(file_name, "rb") as pkl_file:
-        mydict = pickle.load(pkl_file)    
-    #a_file = open(file_name, "rb")
-    #output = pickle.load(a_file)
-    #print(output)
-    return mydict
+def read_pkl(pkl1, pkl2):
+    #save dictionaries in pickle files
+    with open(pkl1, "rb") as pkl_1:
+        mydict1 = pickle.load(pkl_1)
+    with open(pkl2, "rb") as pkl_2:
+        mydict2 = pickle.load(pkl_2) 
+    return mydict1, mydict2
+# initials, urls = read_pkl(pkl1, pkl2)
 
-file_name= 'data/data.json'
-def read_json(file_name):
-    with open(file_name, "r") as json_file:
+json = 'data/data.json'
+def read_json(json):
+    with open(json, "r") as json_file:
         mydict = json.load(json_file)
     return mydict
+#read_json(json)
 
 def get_key(mydict, k):
     # using loop
@@ -431,3 +439,18 @@ def make_page(mydict, search):
     f.write(header+buffer)
     f.close()
     return titles
+
+
+# import dictionaries initials, urls from urls.py    
+if __name__ == '__main__':
+    initials, urls = read_pkl('../data/initials.pkl', '../data/urls.pkl')
+    print(initials.keys())
+    print(urls.keys())
+
+else: 
+    try:
+        from resources.urls import *
+    #except:
+    #    from urls import *
+    except:
+        initials, urls = read_pkl(pkl1, pkl2)
