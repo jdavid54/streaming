@@ -1,5 +1,7 @@
 # url to text files
-
+# update 01/01/2021
+# replace chooseURL by get_url()
+# dictionaries are impotorted by libs.py when called by makehtmlfile.py
 
 initials = {
     'abcd':'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/A-D.txt',
