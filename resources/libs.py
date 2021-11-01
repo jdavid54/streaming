@@ -48,13 +48,16 @@ def Open_Url(url):
 
 def get_url(Search_name):
     Search_title = Search_name.lower().replace(' ','')
-    #url_to_open = 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/newreleases.txt'
-    if initial:
-        for k,v in initials.items():
-            if Search_title[0] in k:
-                return v
-    else:
-        return urls[Search_title]
+    ry:
+        if initial:
+            for k,v in initials.items():
+                if Search_title[0] in k:
+                    return v
+        else:
+            return urls[Search_title]
+    except:
+        #default url if error in key
+        return 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/newreleases.txt'
     
 def chooseURL(Search_name):
     Search_title = Search_name.lower().replace(' ','')
