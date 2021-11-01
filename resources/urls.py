@@ -12,7 +12,7 @@ initials = {
     't': 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/T.txt',
     'uvwxyz': 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/U-Z.txt',
     '0123456789': 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/0-1000000.txt',
-    'rdb': 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/realdebrid.txt'}
+    '#': 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/realdebrid.txt'}
 
 urls = {
     'nr' : 'https://raw.githubusercontent.com/tombebbs1/magicdragon/master/newreleases.txt',
