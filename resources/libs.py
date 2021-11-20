@@ -26,8 +26,7 @@ import pickle
 
 file_name = "data/data.json"
 pkl1, pkl2 = 'data/initials.pkl', 'data/urls.pkl'
-
-
+outfile = 'data/list_movies.txt'
 
 # variables  : debug, initial, Search_name, Search_filter, data_file from makehtmlfile.py
 style = '<html><head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head>'
@@ -183,10 +182,27 @@ def linkok(link):
             test=False
     return test
 
+
 def makebuffer(match_file):
     FANART = 'fanart.jpg'
-    n=1                     # error image
-    m=1                     # number of movies
+        
+    #do_all = False
+    if do_all:
+        # make the whole page
+        list_movies = []
+    else:
+        try:
+            with open ('data/list_movies.txt', 'rb') as fp:
+                list_movies = pickle.load(fp)
+        except:
+            list_movies = []
+        
+    # get old list
+    with open("html/nr_vignette.html","r") as f:
+        old_list = f.read().split('</h4')[1]
+    
+    n=0                     # error image
+    m=0                     # number of movies
     buffer=style+'<body><h1>Free movies ! Enjoy ! </h1>'
     if Search_name != 'nr' :
         buffer+= '<a href="nr_vignette.html">Back page 1</a>'
@@ -199,7 +215,9 @@ def makebuffer(match_file):
     buffer+= '<h4><i>List updated on '+datetime.datetime.now().strftime("%m/%d/%Y")+'</i></h4>'
     
     for name2,url2,image2,fanart2 in match_file:
+        no_image = True
         if debug: print(name2,url2,image2)
+        
         if url2 not in ('ignorme','ignoreme'):
             if fanart2 == '<':
                 fanart2 = FANART
@@ -242,34 +260,56 @@ def makebuffer(match_file):
                     name2 = name2.replace('[/B]','')
                     url2 = '<a href="'+url2+'">Link to video</a>'
                     url2 = modifyURL(url2)
-                url2=name2+'<br>'+url2
+                
+                url2 = name2 + '<br>' + url2
                 # is image link valid ?
                 try:
                     response = requests.get(image2)
+                    #print(response)
                     if response.status_code != 200:
+                        no_image = True
                         n+=1
                         #replace invalid link image
                         image2='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
-
+                    else:
+                        no_image = False
                 except:
                     if debug: print(image2,'no image',n,response.status_code)
                     n+=1
+                    #print('erreur except')
+                    no_image = True
                     #replace invalid image
                     image2='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
 
-
-                if debug :print(name2,url2,image2)
-                #append buffer
-                buffer+='<figure class="swap-on-hover">'
-                buffer+='<img class="swap-on-hover__front-image" src="'+image2+'"/>'
-                buffer+='<div class="swap-on-hover__back-image">'+url2+'</div></figure>'
-                if True:
+                # append list of movies if new
+                
+                if name2 not in list_movies:
+                    list_movies.append(name2)
+                    
+                    if debug :print(name2,url2,image2)
+                    #append buffer if new
+                    buffer+='<figure class="swap-on-hover">'
+                    buffer+='<img class="swap-on-hover__front-image" src="'+image2+'"/>'
+                    buffer+='<div class="swap-on-hover__back-image">'+url2+'</div></figure>'                                        
+                    #print each movie results
+                    #if True:
+                    m+=1
                     print(m,name2,end=' ')
-                    if linkok(url2): 
+                    if not no_image: 
                         print('*')
                     else:
-                        print()
-                m+=1
+                        print('#',n)
+                else:
+                    print('No new movies for today !')                    
+                    # complete with old_list
+                    buffer += old_list
+                    break
+                   
+    # save list of movies to file
+
+    with open('data/list_movies.txt', 'wb') as fp:
+        pickle.dump(list_movies, fp)
+        
     #buffer+='<p><small> August 2021</small></p></body></html>'
     return buffer
 
@@ -280,15 +320,10 @@ def find_text(t,sub1,sub2=''):
         return start, end
     return start
 
-# f= open("/home/pi/Documents/Python/streaming/match.txt","r")
-# match_file = f.read()
-# f.close()
-
 def read_match(file):
     # define an empty list
     places = []
-    # open file and read the content in a list
-    
+    # open file and read the content in a list    
     with open(file, 'r') as filehandle:
         for line in filehandle:
             # remove linebreak which is the last character of the string
@@ -352,12 +387,11 @@ def make_dict(places):
 
 # saving mydict to file 
 
-
 def save_json(file, mydict):
     # save as json file
     with open(file, "w") as json_file:
         json.dump(mydict, json_file)
-#save_json(file_name)
+# save_json(file_name)
         
 def save_pkl(dict1, dict2):
     # save as pickle file
@@ -365,7 +399,7 @@ def save_pkl(dict1, dict2):
         pickle.dump(dict1, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
     with open("data/urls.pkl", "wb") as pkl_file:
         pickle.dump(dict2, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
-#save_pkl(initials, urls)
+# save_pkl(initials, urls)
 
 def read_pkl(pkl1, pkl2):
     #save dictionaries in pickle files
@@ -381,7 +415,7 @@ def read_json(json):
     with open(json, "r") as json_file:
         mydict = json.load(json_file)
     return mydict
-#read_json(json)
+# read_json(json)
 
 def get_key(mydict, k):
     # using loop
