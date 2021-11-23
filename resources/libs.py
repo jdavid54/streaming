@@ -182,7 +182,45 @@ def linkok(link):
             test=False
     return test
 
-
+def render(url2, name2):
+    # if multiple links
+    if 'sublink' in url2:
+        #rectify bad url
+        index=url2.find('sublink')
+        url2=url2[index:]
+        #replace tags
+        url2 = url2.replace('sublink:LISTSOURCE:','<a href="')
+        url2 = url2.replace('ublink:LISTSOURCE:','<a href="')
+        url2 = url2.replace('::LISTNAME:','" target="new">')
+        url2 = url2.replace('::#','</a>')
+        url2 = url2.replace('\\r\\n','<br>')
+        url2 = url2.replace('[COLORgold]','')
+        url2 = url2.replace('[COLORorchid][/COLOR]','Link to video')
+        url2 = url2.replace('[COLORorchid]','')
+        url2 = url2.replace('[COLORred]','')
+        url2 = url2.replace('[COLORwhite]','')
+        url2 = url2.replace('[/COLOR]','')
+        url2 = modifyURL(url2)
+        name2 = name2.replace('[COLOR white]','')
+        name2 = name2.replace('[COLORwhite]','')
+        name2 = name2.replace('[COLOR gold]','')
+        name2 = name2.replace('[COLOR pink]','')
+        name2 = name2.replace('[COLORred]','')
+        name2 = name2.replace('[B]','')
+        name2 = name2.replace('[/COLOR]','')
+        name2 = name2.replace('[/I]','')
+        name2 = name2.replace('[I]','')
+        name2 = name2.replace('[/B]','')
+    else:    #or only one link
+        name2 = name2.replace('[COLORwhite]','')
+        name2 = name2.replace('[/COLOR]','')
+        name2 = name2.replace('[COLOR gold]','')
+        name2 = name2.replace('[B]','')
+        name2 = name2.replace('[/B]','')
+        url2 = '<a href="'+url2+'">Link to video</a>'
+        url2 = modifyURL(url2)
+    return url2, name2
+                
 def makebuffer(match_file):
     FANART = 'fanart.jpg'
         
@@ -199,10 +237,11 @@ def makebuffer(match_file):
         
     # get old list
     with open("html/nr_vignette.html","r") as f:
-        old_list = f.read().split('</h4')[1]
+        old_list = f.read().split('</h4>')[1]
     
     n=0                     # error image
     m=0                     # number of movies
+    new = False
     buffer=style+'<body><h1>Free movies ! Enjoy ! </h1>'
     if Search_name != 'nr' :
         buffer+= '<a href="nr_vignette.html">Back page 1</a>'
@@ -224,43 +263,45 @@ def makebuffer(match_file):
             else:
                 fanart2 = fanart2.replace('<','')
             if Search_filter in name2.lower().replace(' ',''):
-                # if multiple links
-                if 'sublink' in url2:
-                    #rectify bad url
-                    index=url2.find('sublink')
-                    url2=url2[index:]
-                    #replace tags
-                    url2 = url2.replace('sublink:LISTSOURCE:','<a href="')
-                    url2 = url2.replace('ublink:LISTSOURCE:','<a href="')
-                    url2 = url2.replace('::LISTNAME:','" target="new">')
-                    url2 = url2.replace('::#','</a>')
-                    url2 = url2.replace('\\r\\n','<br>')
-                    url2 = url2.replace('[COLORgold]','')
-                    url2 = url2.replace('[COLORorchid][/COLOR]','Link to video')
-                    url2 = url2.replace('[COLORorchid]','')
-                    url2 = url2.replace('[COLORred]','')
-                    url2 = url2.replace('[COLORwhite]','')
-                    url2 = url2.replace('[/COLOR]','')
-                    url2 = modifyURL(url2)
-                    name2 = name2.replace('[COLOR white]','')
-                    name2 = name2.replace('[COLORwhite]','')
-                    name2 = name2.replace('[COLOR gold]','')
-                    name2 = name2.replace('[COLOR pink]','')
-                    name2 = name2.replace('[COLORred]','')
-                    name2 = name2.replace('[B]','')
-                    name2 = name2.replace('[/COLOR]','')
-                    name2 = name2.replace('[/I]','')
-                    name2 = name2.replace('[I]','')
-                    name2 = name2.replace('[/B]','')
-                else:    #or only one link
-                    name2 = name2.replace('[COLORwhite]','')
-                    name2 = name2.replace('[/COLOR]','')
-                    name2 = name2.replace('[COLOR gold]','')
-                    name2 = name2.replace('[B]','')
-                    name2 = name2.replace('[/B]','')
-                    url2 = '<a href="'+url2+'">Link to video</a>'
-                    url2 = modifyURL(url2)
                 
+#                 # if multiple links
+#                 if 'sublink' in url2:
+#                     #rectify bad url
+#                     index=url2.find('sublink')
+#                     url2=url2[index:]
+#                     #replace tags
+#                     url2 = url2.replace('sublink:LISTSOURCE:','<a href="')
+#                     url2 = url2.replace('ublink:LISTSOURCE:','<a href="')
+#                     url2 = url2.replace('::LISTNAME:','" target="new">')
+#                     url2 = url2.replace('::#','</a>')
+#                     url2 = url2.replace('\\r\\n','<br>')
+#                     url2 = url2.replace('[COLORgold]','')
+#                     url2 = url2.replace('[COLORorchid][/COLOR]','Link to video')
+#                     url2 = url2.replace('[COLORorchid]','')
+#                     url2 = url2.replace('[COLORred]','')
+#                     url2 = url2.replace('[COLORwhite]','')
+#                     url2 = url2.replace('[/COLOR]','')
+#                     url2 = modifyURL(url2)
+#                     name2 = name2.replace('[COLOR white]','')
+#                     name2 = name2.replace('[COLORwhite]','')
+#                     name2 = name2.replace('[COLOR gold]','')
+#                     name2 = name2.replace('[COLOR pink]','')
+#                     name2 = name2.replace('[COLORred]','')
+#                     name2 = name2.replace('[B]','')
+#                     name2 = name2.replace('[/COLOR]','')
+#                     name2 = name2.replace('[/I]','')
+#                     name2 = name2.replace('[I]','')
+#                     name2 = name2.replace('[/B]','')
+#                 else:    #or only one link
+#                     name2 = name2.replace('[COLORwhite]','')
+#                     name2 = name2.replace('[/COLOR]','')
+#                     name2 = name2.replace('[COLOR gold]','')
+#                     name2 = name2.replace('[B]','')
+#                     name2 = name2.replace('[/B]','')
+#                     url2 = '<a href="'+url2+'">Link to video</a>'
+#                     url2 = modifyURL(url2)
+#                 
+                url2, name2 = render(url2, name2)
                 url2 = name2 + '<br>' + url2
                 # is image link valid ?
                 try:
@@ -284,6 +325,7 @@ def makebuffer(match_file):
                 # append list of movies if new
                 
                 if name2 not in list_movies:
+                    new = True
                     list_movies.append(name2)
                     
                     if debug :print(name2,url2,image2)
@@ -299,12 +341,13 @@ def makebuffer(match_file):
                         print('*')
                     else:
                         print('#',n)
+                # already in list_movies
                 else:
-                    print('No new movies for today !')                    
-                    # complete with old_list
-                    buffer += old_list
+                    if not new:
+                        print('No new movies for today !')                    
                     break
-                   
+    # complete with old_list
+    buffer += old_list               
     # save list of movies to file
 
     with open('data/list_movies.txt', 'wb') as fp:
@@ -393,22 +436,7 @@ def save_json(file, mydict):
         json.dump(mydict, json_file)
 # save_json(file_name)
         
-def save_pkl(dict1, dict2):
-    # save as pickle file
-    with open("data/initials.pkl", "wb") as pkl_file:
-        pickle.dump(dict1, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
-    with open("data/urls.pkl", "wb") as pkl_file:
-        pickle.dump(dict2, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
-# save_pkl(initials, urls)
 
-def read_pkl(pkl1, pkl2):
-    #save dictionaries in pickle files
-    with open(pkl1, "rb") as pkl_1:
-        mydict1 = pickle.load(pkl_1)
-    with open(pkl2, "rb") as pkl_2:
-        mydict2 = pickle.load(pkl_2) 
-    return mydict1, mydict2
-# initials, urls = read_pkl(pkl1, pkl2)
 
 json = 'data/data.json'
 def read_json(json):
@@ -474,17 +502,43 @@ def make_page(mydict, search):
     f.close()
     return titles
 
+def save_pkl(dict1, dict2):
+    # save as pickle file
+    with open("data/initials.pkl", "wb") as pkl_file:
+        pickle.dump(dict1, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
+    with open("data/urls.pkl", "wb") as pkl_file:
+        pickle.dump(dict2, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
+# save_pkl(initials, urls)
 
-# import dictionaries initials, urls from urls.py    
-if __name__ == '__main__':
+def read_pkl(pkl1, pkl2):
+    #save dictionaries in pickle files
+    with open(pkl1, "rb") as pkl_1:
+        mydict1 = pickle.load(pkl_1)
+    with open(pkl2, "rb") as pkl_2:
+        mydict2 = pickle.load(pkl_2) 
+    return mydict1, mydict2
+# initials, urls = read_pkl(pkl1, pkl2)
+
+
+if __name__ == '__main__':  # relatif à libs.py
+# pour récupérer les dictionnaires :
+# 1: importer de urls
+#from urls import initials, urls  
+# 2 : lire depuis les fichiers pkl
     initials, urls = read_pkl('../data/initials.pkl', '../data/urls.pkl')
     print(initials.keys())
     print(urls.keys())
 
-else: 
+else: # relatif au répertoire de makehtmlfile.py
     try:
         from resources.urls import *
     #except:
     #    from urls import *
     except:
         initials, urls = read_pkl(pkl1, pkl2)
+
+# erreur protocol=5 solved (save pckl avec highest_protocol 
+# with open("../data/urls2.pkl", "wb") as pkl_file:
+#         pickle.dump(initials, pkl_file, protocol=pickle.HIGHEST_PROTOCOL)
+# with open("../data/urls2.pkl", "rb") as pkl_1:
+#         coucou = pickle.load(pkl_1)
