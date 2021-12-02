@@ -262,45 +262,7 @@ def makebuffer(match_file):
                 fanart2 = FANART
             else:
                 fanart2 = fanart2.replace('<','')
-            if Search_filter in name2.lower().replace(' ',''):
-                
-#                 # if multiple links
-#                 if 'sublink' in url2:
-#                     #rectify bad url
-#                     index=url2.find('sublink')
-#                     url2=url2[index:]
-#                     #replace tags
-#                     url2 = url2.replace('sublink:LISTSOURCE:','<a href="')
-#                     url2 = url2.replace('ublink:LISTSOURCE:','<a href="')
-#                     url2 = url2.replace('::LISTNAME:','" target="new">')
-#                     url2 = url2.replace('::#','</a>')
-#                     url2 = url2.replace('\\r\\n','<br>')
-#                     url2 = url2.replace('[COLORgold]','')
-#                     url2 = url2.replace('[COLORorchid][/COLOR]','Link to video')
-#                     url2 = url2.replace('[COLORorchid]','')
-#                     url2 = url2.replace('[COLORred]','')
-#                     url2 = url2.replace('[COLORwhite]','')
-#                     url2 = url2.replace('[/COLOR]','')
-#                     url2 = modifyURL(url2)
-#                     name2 = name2.replace('[COLOR white]','')
-#                     name2 = name2.replace('[COLORwhite]','')
-#                     name2 = name2.replace('[COLOR gold]','')
-#                     name2 = name2.replace('[COLOR pink]','')
-#                     name2 = name2.replace('[COLORred]','')
-#                     name2 = name2.replace('[B]','')
-#                     name2 = name2.replace('[/COLOR]','')
-#                     name2 = name2.replace('[/I]','')
-#                     name2 = name2.replace('[I]','')
-#                     name2 = name2.replace('[/B]','')
-#                 else:    #or only one link
-#                     name2 = name2.replace('[COLORwhite]','')
-#                     name2 = name2.replace('[/COLOR]','')
-#                     name2 = name2.replace('[COLOR gold]','')
-#                     name2 = name2.replace('[B]','')
-#                     name2 = name2.replace('[/B]','')
-#                     url2 = '<a href="'+url2+'">Link to video</a>'
-#                     url2 = modifyURL(url2)
-#                 
+            if Search_filter in name2.lower().replace(' ',''):               
                 url2, name2 = render(url2, name2)
                 url2 = name2 + '<br>' + url2
                 # is image link valid ?
