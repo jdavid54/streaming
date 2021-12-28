@@ -244,12 +244,13 @@ def makebuffer(match_file):
     new = False
     buffer=style+'<body><h1>Free movies ! Enjoy ! </h1>'
     if Search_name != 'nr' :
-        buffer+= '<a href="nr_vignette.html">Back page 1</a>'
+        buffer+= '<a href="nr_vignette.html">Back page 1</a>'        
     else:
         buffer+= '<a href="nr2_after_select.html">Page 2</a>&nbsp;&nbsp;&nbsp;'
         #buffer+= '<a href="nr3_after_select">Page 3</a>&nbsp;&nbsp;&nbsp;'
         #buffer+= '<a href="nr4_after_select.html">Page 4</a>&nbsp;&nbsp;&nbsp;'
         #buffer+= '<a href="nr5_after_select.html">Page 5</a>'
+        buffer+= '<a href="filter_from_nr.html">Filter movies</a>'
     # add date of update
     buffer+= '<h4><i>List updated on '+datetime.datetime.now().strftime("%m/%d/%Y")+'</i></h4>'
     
@@ -262,7 +263,45 @@ def makebuffer(match_file):
                 fanart2 = FANART
             else:
                 fanart2 = fanart2.replace('<','')
-            if Search_filter in name2.lower().replace(' ',''):               
+            if Search_filter in name2.lower().replace(' ',''):
+                
+#                 # if multiple links
+#                 if 'sublink' in url2:
+#                     #rectify bad url
+#                     index=url2.find('sublink')
+#                     url2=url2[index:]
+#                     #replace tags
+#                     url2 = url2.replace('sublink:LISTSOURCE:','<a href="')
+#                     url2 = url2.replace('ublink:LISTSOURCE:','<a href="')
+#                     url2 = url2.replace('::LISTNAME:','" target="new">')
+#                     url2 = url2.replace('::#','</a>')
+#                     url2 = url2.replace('\\r\\n','<br>')
+#                     url2 = url2.replace('[COLORgold]','')
+#                     url2 = url2.replace('[COLORorchid][/COLOR]','Link to video')
+#                     url2 = url2.replace('[COLORorchid]','')
+#                     url2 = url2.replace('[COLORred]','')
+#                     url2 = url2.replace('[COLORwhite]','')
+#                     url2 = url2.replace('[/COLOR]','')
+#                     url2 = modifyURL(url2)
+#                     name2 = name2.replace('[COLOR white]','')
+#                     name2 = name2.replace('[COLORwhite]','')
+#                     name2 = name2.replace('[COLOR gold]','')
+#                     name2 = name2.replace('[COLOR pink]','')
+#                     name2 = name2.replace('[COLORred]','')
+#                     name2 = name2.replace('[B]','')
+#                     name2 = name2.replace('[/COLOR]','')
+#                     name2 = name2.replace('[/I]','')
+#                     name2 = name2.replace('[I]','')
+#                     name2 = name2.replace('[/B]','')
+#                 else:    #or only one link
+#                     name2 = name2.replace('[COLORwhite]','')
+#                     name2 = name2.replace('[/COLOR]','')
+#                     name2 = name2.replace('[COLOR gold]','')
+#                     name2 = name2.replace('[B]','')
+#                     name2 = name2.replace('[/B]','')
+#                     url2 = '<a href="'+url2+'">Link to video</a>'
+#                     url2 = modifyURL(url2)
+#                 
                 url2, name2 = render(url2, name2)
                 url2 = name2 + '<br>' + url2
                 # is image link valid ?
