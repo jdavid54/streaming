@@ -1,0 +1,119 @@
+<html>
+<body>
+
+<form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+
+  <fieldset>
+    <h2>Movie title list filter</h2>
+	 <label for="select">Titles with :</label>
+	 <input type='text' id='select' value=''>
+     <input type='button' id='btnLoad' value='Load' onclick='displayText();'>
+  </fieldset>
+</form>
+
+<h3>Filter results :</h3>
+<p id="file-content">here</p>
+
+<script type="text/javascript">
+  style='<head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head><body>';
+
+function readTextFile(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    //rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
+}
+
+//usage:
+var data;
+var mytext;
+var target = "nr_vignette.html";
+var header = '<head><link rel="stylesheet" type="text/css" href="../resources/style.css"><style>@media print {#ghostery-tracker-tally {display:none !important}}</style></head><body>'
+
+readTextFile(target, function(text){
+	mytext = text;	
+	mytext = header + mytext.split('</h4>')[1];
+	//data = JSON.parse(text);
+	//console.log(txt);
+	//var mylist = txt.split('<figure>');
+	//console.log(mylist);
+	displayText(mytext);
+	//displayContents(data, Object.keys(data['movies']).length);
+});
+
+function load() {
+
+	var file, fr;
+	file = 'file://home/pi/Documents/Python/streaming/data/data2.json'
+	fr = new FileReader(file);
+	console.log(fr);
+    fr.onload = receivedText;
+    fr.readAsText(file);
+
+	function receivedText(e) {
+      let lines = e.target.result;
+      var newArr = JSON.parse(lines); 
+	  //console.log(newArr);
+	  //console.log(Object.keys(newArr['movies']).length);
+	  //displayContents(newArr, Object.keys(newArr['movies']).length);
+    }
+
+}  
+
+//load();
+
+
+
+function loadFile2() {
+	displayContents(data, Object.keys(data['movies']).length);
+}
+
+function displayContents(contents, l) {
+    var element = document.getElementById('file-content');
+	var search_text = document.getElementById('select').value;
+	console.log(search_text);
+	buffer = style; 
+	for (k=0; k<l; k++) {
+	  name = contents['movies'][k].name;	  
+	  if (name.toLowerCase().includes(search_text.toLowerCase())) {
+		console.log(name);	
+		buffer += '<figure class="swap-on-hover">';
+		image = contents['movies'][k].img;
+		url = contents['movies'][k].name+'<br>'+contents['movies'][k].url;
+		buffer += '<img class="swap-on-hover__front-image" src='+image+' />';
+		buffer += '<div class="swap-on-hover__back-image">'+url+'</div></figure>'; 
+	  }	
+	}
+    element.innerHTML = buffer;
+}
+
+function displayText() {
+	var mylist = mytext.split("<figure");
+	//console.log(mylist);
+	var element = document.getElementById('file-content');
+	var search_text = document.getElementById('select').value;
+	//var search_text = '';
+	buffer = mylist[0];
+
+	for (k=1;k<mylist.length;k++) {
+		//console.log(mylist[k]);
+		if (mylist[k].toLowerCase().includes(search_text)) {
+			buffer += '<figure'+mylist[k];
+			//console.log(buffer);
+
+		}
+	}
+	console.log(buffer);
+	element.innerHTML = buffer;
+    		
+}
+
+</script>
+
+</body>
+</html>
