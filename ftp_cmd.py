@@ -145,11 +145,11 @@ def upload(host, user, pwd):
         # distant working directory
         changedir('streaming/html')
         try:
-            efface('index.html')
+            efface('nr_vignette.html')
         except:
             pass
 
-        envoi('index.html')
+        envoi('nr_vignette.html')
         deco()
     else:
         print('Pas de connexion')
