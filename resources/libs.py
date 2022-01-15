@@ -220,7 +220,19 @@ def render(url2, name2):
         url2 = '<a href="'+url2+'">Link to video</a>'
         url2 = modifyURL(url2)
     return url2, name2
-                
+
+def new_render(url2, name2):
+    name2 = name2.replace('[COLORwhite]','')
+    name2 = name2.replace('[/COLOR]','')
+    #url2 = url2.split('\r\n')
+    urls = re.compile('<sublink>(.+?)</sublink>',re.DOTALL).findall(url2)
+    result = ''
+    for u in urls:
+        href, label = u.split('(')
+        link = '<a href="'+href+'">'+label[:-1]+'</a><br>'
+        result += link
+    return result, name2
+    
 def makebuffer(match_file):
     FANART = 'fanart.jpg'
         
@@ -230,7 +242,7 @@ def makebuffer(match_file):
         list_movies = []
     else:
         try:
-            with open ('data/list_movies.txt', 'rb') as fp:
+            with open ('data/list_movies2.txt', 'rb') as fp:
                 list_movies = pickle.load(fp)
         except:
             list_movies = []
@@ -302,7 +314,7 @@ def makebuffer(match_file):
 #                     url2 = '<a href="'+url2+'">Link to video</a>'
 #                     url2 = modifyURL(url2)
 #                 
-                url2, name2 = render(url2, name2)
+                url2, name2 = new_render(url2, name2)
                 url2 = name2 + '<br>' + url2
                 # is image link valid ?
                 try:
