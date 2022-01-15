@@ -1,8 +1,13 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 import sys
 import resources
 from resources.libs import getmatch, makebuffer
 import time
+
+import requests
+import re
 
 # last total = 622
 # doublon = 3
@@ -35,9 +40,20 @@ def main():
     resources.libs.data_file = text_file
     resources.libs.do_all = do_all
     
-    match2 = getmatch(Search_name)  # get the file from 'nr', or,'nr2', ...
+    #match2 = getmatch(Search_name)  # get the file from 'nr', or,'nr2', ...
+    #print(match2)
+    
 
+    url = 'https://raw.githubusercontent.com/tombebbs1/MagicDragonKodi18/main/newreleases1.xml'
+    response = requests.get(url)
+    #print(response.content)
+    HTML2 = response.content.decode("utf8")
+    match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)/fanart>',re.DOTALL).findall(str(HTML2))    
+    text_file = 'data/match.txt'
+    #print(match2)
+    
     buffer = makebuffer(match2)
+    #print(buffer)
     end = time.time()
     print('Time of process :',end - start,'s')
 
@@ -47,11 +63,13 @@ def main():
         print("Processus terminé ! " + Search_name + "_vignette.html est créé dans le répertoire html !")
     
     # save to local web server
-    if Search_name == 'nr':
-        with open("/var/www/html/streaming/html/nr_vignette.html","w+") as f:
-            f.write(buffer)
-
+    if Search_name == 'nr':      
+        with open("/var/www/html/streaming/html/nr_vignette.html","w") as f:
+            f.write(buffer)        
+          
 if __name__ == '__main__':
     main()
+    # ftp vers free
+    import ftp_streaming
 
 
