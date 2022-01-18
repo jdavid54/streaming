@@ -234,6 +234,7 @@ def new_render(url2, name2):
     return result, name2
     
 def makebuffer(match_file):
+    #print(match_file)
     FANART = 'fanart.jpg'
         
     #do_all = False
@@ -242,8 +243,9 @@ def makebuffer(match_file):
         list_movies = []
     else:
         try:
-            with open ('data/list_movies2.txt', 'rb') as fp:
+            with open ('data/list_movies.txt', 'rb') as fp:
                 list_movies = pickle.load(fp)
+                #print('Movies',list_movies)
         except:
             list_movies = []
         
@@ -267,6 +269,8 @@ def makebuffer(match_file):
     buffer+= '<h4><i>List updated on '+datetime.datetime.now().strftime("%m/%d/%Y")+'</i></h4>'
     
     for name2,url2,image2,fanart2 in match_file:
+        #print(name2)
+        
         no_image = True
         if debug: print(name2,url2,image2)
         
@@ -276,44 +280,7 @@ def makebuffer(match_file):
             else:
                 fanart2 = fanart2.replace('<','')
             if Search_filter in name2.lower().replace(' ',''):
-                
-#                 # if multiple links
-#                 if 'sublink' in url2:
-#                     #rectify bad url
-#                     index=url2.find('sublink')
-#                     url2=url2[index:]
-#                     #replace tags
-#                     url2 = url2.replace('sublink:LISTSOURCE:','<a href="')
-#                     url2 = url2.replace('ublink:LISTSOURCE:','<a href="')
-#                     url2 = url2.replace('::LISTNAME:','" target="new">')
-#                     url2 = url2.replace('::#','</a>')
-#                     url2 = url2.replace('\\r\\n','<br>')
-#                     url2 = url2.replace('[COLORgold]','')
-#                     url2 = url2.replace('[COLORorchid][/COLOR]','Link to video')
-#                     url2 = url2.replace('[COLORorchid]','')
-#                     url2 = url2.replace('[COLORred]','')
-#                     url2 = url2.replace('[COLORwhite]','')
-#                     url2 = url2.replace('[/COLOR]','')
-#                     url2 = modifyURL(url2)
-#                     name2 = name2.replace('[COLOR white]','')
-#                     name2 = name2.replace('[COLORwhite]','')
-#                     name2 = name2.replace('[COLOR gold]','')
-#                     name2 = name2.replace('[COLOR pink]','')
-#                     name2 = name2.replace('[COLORred]','')
-#                     name2 = name2.replace('[B]','')
-#                     name2 = name2.replace('[/COLOR]','')
-#                     name2 = name2.replace('[/I]','')
-#                     name2 = name2.replace('[I]','')
-#                     name2 = name2.replace('[/B]','')
-#                 else:    #or only one link
-#                     name2 = name2.replace('[COLORwhite]','')
-#                     name2 = name2.replace('[/COLOR]','')
-#                     name2 = name2.replace('[COLOR gold]','')
-#                     name2 = name2.replace('[B]','')
-#                     name2 = name2.replace('[/B]','')
-#                     url2 = '<a href="'+url2+'">Link to video</a>'
-#                     url2 = modifyURL(url2)
-#                 
+              
                 url2, name2 = new_render(url2, name2)
                 url2 = name2 + '<br>' + url2
                 # is image link valid ?
@@ -334,9 +301,11 @@ def makebuffer(match_file):
                     no_image = True
                     #replace invalid image
                     image2='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
+                
+                # limit to stop append
+                if name2 == 'The Lost Treasure (2022)': break
 
                 # append list of movies if new
-                
                 if name2 not in list_movies:
                     new = True
                     list_movies.append(name2)
@@ -354,11 +323,10 @@ def makebuffer(match_file):
                         print('*')
                     else:
                         print('#',n)
-                # already in list_movies
-                else:
-                    if not new:
-                        print('No new movies for today !')                    
-                    break
+    # already in list_movies
+    if not new:
+        print('No new movies for today !')                    
+                    
     # complete with old_list
     buffer += old_list               
     # save list of movies to file
