@@ -50,7 +50,7 @@ def main():
     HTML2 = response.content.decode("utf8")
     match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)/fanart>',re.DOTALL).findall(str(HTML2))    
     text_file = 'data/match.txt'
-    #print(match2)
+    #print(match2[2:4])
     
     buffer = makebuffer(match2)
     #print(buffer)
@@ -67,8 +67,10 @@ def main():
         with open("/var/www/html/streaming/html/nr_vignette.html","w") as f:
             f.write(buffer)        
           
+    return match2
+
 if __name__ == '__main__':
-    main()
+    match = main()
     # ftp vers free
     import ftp_streaming
 
