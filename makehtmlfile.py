@@ -56,22 +56,27 @@ def main():
     #print(buffer)
     end = time.time()
     print('Time of process :',end - start,'s')
-
+    
+    with open("html/index.html","w+") as f:
+        f.write(buffer)
+        #f.close()
+        
     with open("html/"+Search_name+"_vignette.html","w+") as f:
         f.write(buffer)
         #f.close()
-        print("Processus terminé ! " + Search_name + "_vignette.html est créé dans le répertoire html !")
+    
+    print("Processus terminé ! " + Search_name + "_vignette.html est créé dans le répertoire html !")
     
     # save to local web server
-    if Search_name == 'nr':      
-        with open("/var/www/html/streaming/html/nr_vignette.html","w") as f:
-            f.write(buffer)        
+    #if Search_name == 'nr':      
+    #    with open("/var/www/html/streaming/html/nr_vignette.html","w") as f:
+    #        f.write(buffer)        
           
     return match2
 
 if __name__ == '__main__':
     match = main()
-    # ftp vers free
-    import ftp_streaming
+    # ftp - edit credentials before
+    # import ftp_streaming
 
 
