@@ -29,7 +29,7 @@ pkl1, pkl2 = 'data/initials.pkl', 'data/urls.pkl'
 outfile = 'data/list_movies.txt'
 
 # variables  : debug, initial, Search_name, Search_filter, data_file from makehtmlfile.py
-style = '<html><head><link rel="stylesheet" type="text/css" href="../resources/style.css"></head>'
+style = '<html><head><link rel="stylesheet" type="text/css" href="../resources/style.css"><link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="icon" href="favicon.ico" type="image/x-icon"></head>'
 
 def Open_Url(url):
     req = Request(url)
@@ -274,7 +274,7 @@ def makebuffer(match_file):
         no_image = True
         if debug: print(name2,url2,image2)
         
-        if url2 not in ('ignorme','ignoreme'):
+        if '<sublink>' in url2: #url2 not in ('ignorme','ignoreme') 
             if fanart2 == '<':
                 fanart2 = FANART
             else:
