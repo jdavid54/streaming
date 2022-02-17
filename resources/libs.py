@@ -228,7 +228,8 @@ def new_render(url2, name2):
     urls = re.compile('<sublink>(.+?)</sublink>',re.DOTALL).findall(url2)
     result = ''
     for u in urls:
-        href, label = u.split('(')
+        #print(u,name2)
+        href, label = u.split('(',1)
         link = '<a href="'+href+'">'+label[:-1]+'</a><br>'
         result += link
     return result, name2
