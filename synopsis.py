@@ -217,7 +217,7 @@ def add_missing(mydict):
     mydict['Alien(2021)']='Synopsis : A crash-landed alien named Harry who takes on the identity of a small-town Colorado doctor and slowly begins to wrestle with the moral dilemma of his secret mission on Earth.\nStars:\nSara Tomko, Elizabeth Bowen, Corey Reynolds'
     mydict['Catwoman(2022)']='Synopsis : A shy woman, endowed with the speed, reflexes, and senses of a cat, walks a thin line between criminal and hero, even as a detective doggedly pursues her, fascinated by both of her personas.\nDirector:Pitof\nStars:Halle Berry, Sharon Stone, Benjamin Bratt, Lambert Wilson'
     mydict['Dracula(2022)']="Synopsis : The centuries old vampire Count Dracula comes to England to seduce his barrister Jonathan Harker's fiancée Mina Murray and inflict havoc in the foreign land.\nDirector:Francis Ford Coppola\nStars:Gary Oldman, Winona Ryder, Anthony Hopkins, Keanu Reeves"
-    
+    mydict['Pinocchio(2022)']='Synopsis : Young Pinocchio runs away from his genius creator Jepetto accompanied by the horse Tibalt to see the world and joins the traveling circus run by hustler Modjafocco.\nDirector:Vasiliy Rovenskiy\nStars:Jon Heder, Pauly Shore, Tom Kenny, Dmitriy Iosifov'
     # get value with key1 and save with key2
     key1 = 'Spider-Man : no way home (2021)'
     value = get_synop(key1)
@@ -256,5 +256,9 @@ def test():
 # create dictionary from file
 mydict = make_summary_dict()
 
-what = 'day'
-build(what)
+#what = 'day'
+#build(what)
+
+# search for a film
+#find_synopsis(mydict,'burn')
+#find_synopsis(mydict,'deep')

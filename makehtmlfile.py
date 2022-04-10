@@ -57,10 +57,12 @@ def main():
     end = time.time()
     print('Time of process :',end - start,'s')
     
+    # create index.html
     with open("html/index.html","w+") as f:
         f.write(buffer)
         #f.close()
-        
+    
+    # create nr_vignette.html
     with open("html/"+Search_name+"_vignette.html","w+") as f:
         f.write(buffer)
         #f.close()
@@ -77,6 +79,4 @@ def main():
 if __name__ == '__main__':
     match = main()
     # ftp - edit credentials before
-    # import ftp_streaming
-
-
+    import ftp_streaming
