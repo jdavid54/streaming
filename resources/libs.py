@@ -27,7 +27,7 @@ import pickle
 file_name = "data/data.json"
 pkl1, pkl2 = 'data/initials.pkl', 'data/urls.pkl'
 outfile = 'data/list_movies.txt'
-limit = 'Burn (2022)'
+limit = 'Splinters (2022)'
 
 # variables  : debug, initial, Search_name, Search_filter, data_file from makehtmlfile.py
 style = '<html><head><link rel="stylesheet" type="text/css" href="../resources/style.css"><link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="icon" href="favicon.ico" type="image/x-icon"></head>'
@@ -40,7 +40,7 @@ def Open_Url(url):
     try:
         response = urlopen(req)
         link=response.read()
-        if debug: print('debug42','OK reading url')
+        if debug: print('OK reading url')
         response.close()
     except: pass
     if link != '':
@@ -145,7 +145,7 @@ def appendHost(url):
     return url
 
 def modifyURL(url):
-    if debug: print('debug147',"modifying",url)
+    if debug: print("modifying",url)
     u,v = find_text(url,'<a','</a')
     result=''
     for i in range(len(u)):
@@ -162,7 +162,7 @@ def modifyURL(url):
 def getmatch(Search_name):
     #source = chooseURL(Search_name)
     source = get_url(Search_name)
-    if debug: print('debug164',Search_name,source,Search_filter)
+    if debug: print(Search_name,source,Search_filter)
     print(Search_name,source)
     HTML2 = Open_Url(source)
     match2 = re.compile('<title>(.+?)</title>.+?<link>(.+?)</link>.+?<thumbnail>(.+?)</thumbnail>.+?<fanart>(.+?)/fanart>',re.DOTALL).findall(str(HTML2))    
@@ -254,6 +254,7 @@ def makebuffer(match_file):
     # get old list
     with open("html/nr_vignette.html","r") as f:
         old_list = f.read().split('</h4>')[1]
+        print(old_list)
     
     n=0                     # error image
     m=0                     # number of movies
@@ -274,7 +275,7 @@ def makebuffer(match_file):
         #print(name2)
         
         no_image = True
-        if debug: print('debug276',name2,url2,image2)
+        if debug: print(name2,url2,image2)
         
         if '<sublink>' in url2: #url2 not in ('ignorme','ignoreme') 
             if fanart2 == '<':
@@ -297,7 +298,7 @@ def makebuffer(match_file):
                     else:
                         no_image = False
                 except:
-                    if debug: print('debug299',image2,'no image',n,response.status_code)
+                    if debug: print(image2,'no image',n,response.status_code)
                     n+=1
                     #print('erreur except')
                     no_image = True
@@ -312,7 +313,7 @@ def makebuffer(match_file):
                     new = True
                     list_movies.append(name2)
                     
-                    if debug :print('debug314',name2,url2,image2)
+                    if debug :print(name2,url2,image2)
                     #append buffer if new
                     buffer+='<figure class="swap-on-hover">'
                     buffer+='<img class="swap-on-hover__front-image" src="'+image2+'"/>'
@@ -403,7 +404,7 @@ def make_dict(places):
             url2 = url2.replace('[COLORwhite]','')
             url2 = url2.replace('[/COLOR]','')
             
-        if debug:print('debug405',name2, url2)
+        if debug:print(name2, url2)
         d['url']=url2
         d['img']=image2
         d['fanart']=fanart2
@@ -448,7 +449,7 @@ def is_image_valid(img):
             return img
     except:
         if debug:
-            print('debug450',img,'no image',n,response.status_code)
+            print(img,'no image',n,response.status_code)
         #replace invalid image
         img='https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'
     return img
