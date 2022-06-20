@@ -16,6 +16,7 @@ def main():
     debug = False
     initial = False        # if True search using first letter
     do_all = False         # if True make html page from scratch else complete with old one data
+    limit = 'Spiderhead (2022)'
     
     Search_filter = ''     # title filter
     Search_name = 'nr'     # change here nr, nr2, nr3, n4, n5 .... ! for initial search, use argument -i
@@ -39,7 +40,7 @@ def main():
     resources.libs.Search_filter = Search_filter
     resources.libs.data_file = text_file
     resources.libs.do_all = do_all
-    
+    resources.libs.limit = limit
     #match2 = getmatch(Search_name)  # get the file from 'nr', or,'nr2', ...
     #print(match2)
     
@@ -52,31 +53,37 @@ def main():
     text_file = 'data/match.txt'
     #print(match2[2:4])
     
-    buffer = makebuffer(match2)
+    buffer, new = makebuffer(match2)
     #print(buffer)
     end = time.time()
     print('Time of process :',end - start,'s')
     
     # create index.html
-    with open("html/index.html","w+") as f:
+    with open("html/index.html","wb+") as f:
         f.write(buffer)
+        print("Processus terminé ! index.html est créé dans le répertoire html !")
         #f.close()
     
     # create nr_vignette.html
-    with open("html/"+Search_name+"_vignette.html","w+") as f:
+    with open("html/"+Search_name+"_vignette.html","wb+") as f:
         f.write(buffer)
+        print("Processus terminé ! " + Search_name + "_vignette.html est créé dans le répertoire html !")
         #f.close()
     
-    print("Processus terminé ! " + Search_name + "_vignette.html est créé dans le répertoire html !")
+    
     
     # save to local web server
     #if Search_name == 'nr':      
     #    with open("/var/www/html/streaming/html/nr_vignette.html","w") as f:
     #        f.write(buffer)        
           
-    return match2
+    return new
 
 if __name__ == '__main__':
-    match = main()
+    new = main()
+    #import synopsis
     # ftp - edit credentials before
-    import ftp_streaming
+    if new:
+        import ftp_streaming
+        import synopsis
+    

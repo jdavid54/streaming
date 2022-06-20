@@ -121,23 +121,31 @@ def make_summary_dict(new=False):
             #print(mydict)
     first = True  # print the last updated title
     
-    for k in match2[:-1]:
+    for k in match2[6:-1]:
         #print(k)
-        if '<sublink>' in k[1]:
+        if '<sublink>' in k[1] and 'COLORwhite' in k[0]:
+            #print(k)
+            
             title = k[0].split('[COLORwhite]',1)[1].split('[/COLOR]',1)[0]
+            
             if debug : print(title)
-            year = '('+title.split('(',1)[1].split(')',1)[0]+')'
-            title = title.split('(',1)[0].split(': ',1)[0] + year
+            if '(' in title:
+                year = '('+title.split('(',1)[1].split(')',1)[0]+')'
+                title = title.split('(',1)[0].split(': ',1)[0] + year
             if first:
                 print('Last title updated :',title)
                 first = False
             
             if title not in mydict.keys() and title not in no_synop:               
                 try:
+                    old = title
+                    if ' (' not in title:
+                        title = title.replace('(', ' (')
+                        print(title)
                     summary = imdb.get_summary(title.lower())[1]
                     print('\nnew : ',title)
                     print(summary,'\n')                
-                    mydict[title] = summary                    
+                    mydict[old] = summary                    
                     new = True
                 except:
                     print('No synopsis found for ',title)
@@ -146,6 +154,9 @@ def make_summary_dict(new=False):
         print('Saving')
         save_dict(mydict)
     return mydict
+
+def get_synopsis(title):
+    return imdb.get_summary(title.lower())[1]
 
 def list_synopsis(mydict):
     buffer=''
@@ -190,11 +201,9 @@ no_synop = ['American Gangster Presents Big Fifty The Delronda Hood Story (2021)
             'Dear Evan Hansen (2021) Screener','The Card Counter (2021) Screener','star-crossed: the film (2021)',
             'The Guilty (2021) Screener','Harry and Meghan: Escaping the Palace (2021)',
             'Escape Room: Tournament of Champions (2021)', 'Dragon(2022)','Alien(2021)',
-            'Trapped By My Sugar Daddy (2022)','Vanished(2022)','Munich(2021)']
+            'Trapped By My Sugar Daddy (2022)','Vanished(2022)','Munich(2021)','My Babysitter the Superhero (2022)',
+            'Cinderella and the Little Sorcerer (2021)','Every Last Secret (2022)','The Nanny’s Night (2022)']
 
-
-def get_synop(key):
-    return imdb.get_summary(key)[1]
     
 # add missing synopsis
 def add_missing(mydict):
@@ -261,4 +270,4 @@ mydict = make_summary_dict()
 
 # search for a film
 #find_synopsis(mydict,'burn')
-#find_synopsis(mydict,'deep')
+find_synopsis(mydict,'doula')
